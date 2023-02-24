@@ -39,19 +39,19 @@ public class MySqlAccess {
     }
 
     public String getUser(String name) {
-        String NOUSERFOUND = "No users found";
+        String NOUSERFOUND = "No user found";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             Connection connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
 
-            Statement statement = connection.createStatement();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE fname = '" + name +"'");
 
-            ResultSet resultSet = statement.executeQuery("select * from users where fname='" + name + "';");
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet != null)
-                return resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " " + resultSet.getInt(4);
+            if (resultSet.next())
+                return  resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " " + resultSet.getInt(4);
             else
                 return NOUSERFOUND;
 

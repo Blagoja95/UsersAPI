@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Map;
+import java.util.Set;
 
 @WebServlet("/users")
 public class handleReq extends HttpServlet {
@@ -18,7 +20,19 @@ public class handleReq extends HttpServlet {
 
         MySqlAccess dbAccess = new MySqlAccess();
 
-        String reqName = req.getParameter("name");
+        // get all parameter names
+
+
+
+        System.out.println(req.getParameterMap().containsKey("age"));
+        // iterating over parameter names and get its value
+//        for (String name : paramNames) {
+//            String value = req.getParameter(name);
+//            System.out.println(name + ": " + value);
+//        }
+
+
+        String reqName = req.getParameter("age");
 
         if(reqName == null){
             for(String user : dbAccess.getAllUsers())
